@@ -1,0 +1,62 @@
+import type { Application } from "../types";
+
+export const seed: Application[] = [
+  {
+    id: "1",
+    company: "Vodacom",
+    role: "Junior Developer",
+    link: "https://careers.vodacom.co.za/",
+    dateSent: "2026-09-18",
+    stage: "applied",
+    notes: "Spoke to Thandi in HR. Follow up after the 20th.",
+    createdAt: "2026-09-18T08:00:00Z",
+  },
+  {
+    id: "2",
+    company: "Takealot",
+    role: "Frontend Intern",
+    dateSent: "2026-10-02",
+    stage: "interview",
+    createdAt: "2026-10-02T09:30:00Z",
+  },
+  {
+    id: "3",
+    company: "Discovery",
+    role: "Graduate Software Engineer",
+    dateSent: "2026-10-09",
+    stage: "wishlist",
+    createdAt: "2026-10-09T10:00:00Z",
+  },
+  {
+    id: "4",
+    company: "Standard Bank",
+    role: "Software Developer",
+    dateSent: "2026-09-25",
+    stage: "applied",
+    createdAt: "2026-09-25T11:15:00Z",
+  },
+  {
+    id: "5",
+    company: "Capitec",
+    role: "React Developer",
+    dateSent: "2026-10-08",
+    stage: "applied",
+    createdAt: "2026-10-08T14:00:00Z",
+  },
+  {
+    id: "6",
+    company: "Dimension Data",
+    role: "Junior Web Developer",
+    dateSent: "2026-09-20",
+    stage: "offer",
+    createdAt: "2026-09-20T07:45:00Z",
+  },
+  {
+    id: "7",
+    company: "Telkom",
+    role: "QA Analyst",
+    dateSent: "2026-09-05",
+    stage: "closed",
+    createdAt: "2026-09-05T12:00:00Z",
+  },
+];

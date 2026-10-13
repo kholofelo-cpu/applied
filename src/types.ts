@@ -1,5 +1,6 @@
 export type Stage =  "wishlist" | "applied" | "interview" | "offer" |"closed" ;
 
+export type StageFilter = Stage | "all";
 export interface Application {
     id: string;
     company: string;
