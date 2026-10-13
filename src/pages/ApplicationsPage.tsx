@@ -4,6 +4,7 @@ import { seed } from "../data/seed"; // temporary, replaced by the hook in Step 
 import { countByStage, filterApplications } from "../lib/applications";
 import { StageSummary } from "../components/StageSummary";
 import { FilterBar } from "../components/FilterBar";
+import { ApplicationList } from "../components/ApplicationList";
 
 
 export function ApplicationsPage() {

@@ -52,3 +52,25 @@ export function filterApplications(
     return matchesStage && matchesSearch;
   });
 }
+
+// Today as YYYY-MM-DD in the user's own timezone.
+export function todayISO(now: Date = new Date()): string {
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+export function formatDate(dateSent: string): string {
+  return new Date(`${dateSent}T00:00:00`).toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+}
+
+export function daysAgoLabel(days: number): string {
+  if (days <= 0) return "today";
+  if (days === 1) return "1 day ago";
+  return `${days} days ago`;
+}

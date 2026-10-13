@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router";
+import { Layout } from "./components/Layout";
 import { ApplicationsPage } from "./pages/ApplicationsPage";
 import { ApplicationPage } from "./pages/ApplicationPage";
 import { NewApplicationPage } from "./pages/NewApplicationPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
-import Layout from "./pages/Layout"
 
 export default function App() {
   return (
