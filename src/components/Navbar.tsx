@@ -1,9 +1,10 @@
 // src/components/Navbar.tsx
 import { Link, useNavigate } from "react-router"
 import { useAuth } from "../context/AuthContext"
+import Loader from "./ui/loader"
 
 export default function Navbar() {
-  const { user, logout } = useAuth()
+  const { user, logout, authLoading } = useAuth()
   const navigate = useNavigate()
 
   const handleLogout = async () => {
@@ -21,10 +22,11 @@ export default function Navbar() {
             <span className="text-sm opacity-70">{user.email}</span>
             <Link to="/applications" className="hover:underline">My Applications</Link>
             <button 
-              onClick={handleLogout}
-              className="bg-red-600 px-3 py-1 rounded hover:bg-red-700"
+              onClick={handleLogout} 
+              disabled={authLoading}
+              className="flex items-center gap-2"
             >
-              Logout
+                  {authLoading ? <Loader /> : "Logout"}
             </button>
           </>
         ) : (
