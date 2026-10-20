@@ -1,32 +1,33 @@
 import { useState } from "react";
 import type { StageFilter } from "../types";
-import { seed } from "../data/seed"; // temporary, replaced by the hook in Step 4
+import { useApplications } from "../hooks/useApplications";
 import { countByStage, filterApplications } from "../lib/applications";
 import { StageSummary } from "../components/StageSummary";
 import { FilterBar } from "../components/FilterBar";
 import { ApplicationList } from "../components/ApplicationList";
 
-
 export function ApplicationsPage() {
-  const applications = seed;
-
+  const { applications, loading, error } = useApplications();
   const [search, setSearch] = useState("");
   const [stage, setStage] = useState<StageFilter>("all");
 
-  // Derived, never stored in state:
   const counts = countByStage(applications);
   const visible = filterApplications(applications, search, stage).sort((a, b) =>
     b.createdAt.localeCompare(a.createdAt)
   );
 
-  function clearFilters() {
-    setSearch("");
-    setStage("all");
-  }
+  if (loading) return <div className="p-8">Loading your applications...</div>;
+  if (error) return <div className="p-8 text-red-600">{error}</div>;
 
   return (
-    <main className="space-y-4 p-4">
-      <StageSummary counts={counts} />
+    <div className="mx-auto max-w-5xl space-y-6 p-6">
+      <div>
+        <h1 className="text-2xl font-bold">Your Applications</h1>
+        <div className="mt-4">
+          <StageSummary counts={counts} />
+        </div>
+      </div>
+
       <FilterBar
         search={search}
         onSearchChange={setSearch}
@@ -34,18 +35,7 @@ export function ApplicationsPage() {
         onStageChange={setStage}
       />
 
-      {applications.length === 0 ? (
-        <p>Nothing here yet. Add your first application.</p>
-      ) : visible.length === 0 ? (
-        <div>
-          <p>No applications match your search.</p>
-          <button type="button" onClick={clearFilters}>
-            Clear filters
-          </button>
-        </div>
-      ) : (
-        <ApplicationList applications={visible} />
-      )}
-    </main>
+      <ApplicationList applications={visible} />
+    </div>
   );
 }

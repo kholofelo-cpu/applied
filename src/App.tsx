@@ -9,6 +9,7 @@ import Register from "./pages/Register"
 import { useAuth } from "./hooks/useAuth"
 import Navbar from './components/Navbar'
 import { AuthProvider } from "./context/AuthContext"
+import { HomePage } from "./pages/HomePage"
 
 function Protected({ children }: { children: React.ReactNode }) {
   const { user } = useAuth()
@@ -23,14 +24,17 @@ export default function App() {
    <AuthProvider>
     <Navbar />
      <Routes>
+        <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+
         <Route element={<Layout />}>
-          <Route path="/" element={<Protected><ApplicationsPage /></Protected>} />
+          <Route path="/applications" element={<Protected><ApplicationsPage /></Protected>} />
           <Route path="/applications/:id" element={<Protected><ApplicationPage /></Protected>} />
           <Route path="/new" element={<Protected><NewApplicationPage /></Protected>} />
-          <Route path="*" element={<NotFoundPage />} />
         </Route>
+
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
    </AuthProvider>
   )

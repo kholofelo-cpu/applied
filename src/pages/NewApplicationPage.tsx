@@ -75,8 +75,13 @@ export function NewApplicationPage() {
 
   return (
     <main className="mx-auto max-w-xl space-y-4 p-4">
-      <Link to="/" className="text-sm underline">
+      <Link to="/applications" className="text-sm underline">
         ← Back to all applications
+      </Link>
+      <br>
+      </br>
+       <Link to="/" className="text-sm underline">
+        ← Home
       </Link>
       <h1 className="text-2xl font-bold">Add an application</h1>
 

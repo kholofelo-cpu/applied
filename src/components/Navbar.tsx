@@ -20,7 +20,6 @@ export default function Navbar() {
         {user ? (
           <>
             <span className="text-sm opacity-70">{user.email}</span>
-            <Link to="/applications" className="hover:underline">My Applications</Link>
             <button 
               onClick={handleLogout} 
               disabled={authLoading}
