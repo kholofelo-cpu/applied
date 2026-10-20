@@ -58,5 +58,5 @@ export const seed: Application[] = [
     dateSent: "2026-09-05",
     stage: "closed",
     createdAt: "2026-09-05T12:00:00Z",
-  },
+  },  
 ];
