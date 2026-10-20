@@ -102,13 +102,13 @@ function ApplicationDetail({ application, saving, update, remove }: DetailProps)
   function handleDelete() {
     return run(async () => {
       await remove(application.id);
-      navigate("/");
+      navigate("/applications");
     });
   }
 
   return (
     <main className="space-y-4 p-4">
-      <Link to="/" className="text-sm underline">
+      <Link to="/applications" className="text-sm underline">
         ← Back to all applications
       </Link>
 

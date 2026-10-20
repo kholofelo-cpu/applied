@@ -13,15 +13,14 @@ type FormValues = {
   role: string;
   link: string;
   dateSent: string;
+  nextStepDate: string;
   stage: Stage;
   notes: string;
 };
 
-// The native select and textarea keep a plain style that matches the shadcn inputs.
 const nativeClass =
   "w-full rounded-md border bg-background px-3 py-2 text-sm shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 
-// Draws an error message under a field, or nothing if there is no error.
 function FieldError({ id, message }: { id: string; message?: string }) {
   if (!message) return null;
   return (
@@ -45,13 +44,12 @@ export function NewApplicationPage() {
       role: "",
       link: "",
       dateSent: todayISO(),
+      nextStepDate: "",
       stage: "wishlist",
       notes: "",
     },
   });
 
-  // useRef on a DOM node: focus the first field when the form opens.
-  // register() already hands us a ref, so we pass the element to both.
   const { ref: companyRef, ...companyField } = register("company", {
     validate: (v) => v.trim().length >= 2 || "Company is required",
   });
@@ -60,17 +58,17 @@ export function NewApplicationPage() {
     firstFieldRef.current?.focus();
   }, []);
 
-  // Only runs when every rule passes.
   async function onSubmit(values: FormValues) {
     await add({
       company: values.company.trim(),
       role: values.role.trim(),
       link: values.link.trim() || undefined,
       dateSent: values.dateSent,
+      nextStepDate: values.nextStepDate || undefined,
       stage: values.stage,
       notes: values.notes.trim() || undefined,
     });
-    navigate("/");
+    navigate("/applications");
   }
 
   return (
@@ -78,9 +76,8 @@ export function NewApplicationPage() {
       <Link to="/applications" className="text-sm underline">
         ← Back to all applications
       </Link>
-      <br>
-      </br>
-       <Link to="/" className="text-sm underline">
+      <br></br>
+      <Link to="/" className="text-sm underline">
         ← Home
       </Link>
       <h1 className="text-2xl font-bold">Add an application</h1>
@@ -107,8 +104,6 @@ export function NewApplicationPage() {
           <Input
             id="role"
             type="text"
-            aria-invalid={errors.role ? "true" : "false"}
-            aria-describedby={errors.role ? "role-error" : undefined}
             {...register("role", {
               validate: (v) => v.trim().length >= 2 || "Job title is required",
             })}
@@ -122,18 +117,12 @@ export function NewApplicationPage() {
             id="link"
             type="text"
             placeholder="https://careers.example.com/…"
-            aria-invalid={errors.link ? "true" : "false"}
-            aria-describedby={errors.link ? "link-error" : undefined}
             {...register("link", {
               validate: (v) => {
                 if (v.trim() === "") return true;
                 try {
                   const url = new URL(v.trim());
-                  return (
-                    url.protocol === "http:" ||
-                    url.protocol === "https:" ||
-                    "That does not look like a link"
-                  );
+                  return url.protocol === "http:" || url.protocol === "https:" || "That does not look like a link";
                 } catch {
                   return "That does not look like a link";
                 }
@@ -149,8 +138,6 @@ export function NewApplicationPage() {
             <Input
               id="dateSent"
               type="date"
-              aria-invalid={errors.dateSent ? "true" : "false"}
-              aria-describedby={errors.dateSent ? "dateSent-error" : undefined}
               {...register("dateSent", {
                 validate: (v) => {
                   if (!v) return "Date sent is required";
@@ -161,6 +148,13 @@ export function NewApplicationPage() {
             <FieldError id="dateSent-error" message={errors.dateSent?.message} />
           </div>
 
+          <div className="space-y-1">
+            <Label htmlFor="nextStepDate">Next step / Interview date</Label>
+            <Input id="nextStepDate" type="date" {...register("nextStepDate")} />
+          </div>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-1">
             <Label htmlFor="stage">Stage</Label>
             <select id="stage" className={nativeClass} {...register("stage")}>
@@ -182,7 +176,7 @@ export function NewApplicationPage() {
           <Button type="submit" disabled={isSubmitting}>
             {isSubmitting ? "Saving…" : "Save application"}
           </Button>
-          <Button type="button" variant="outline" onClick={() => navigate("/")}>
+          <Button type="button" variant="outline" onClick={() => navigate("/applications")}>
             Cancel
           </Button>
         </div>

@@ -8,6 +8,7 @@ export interface Application {
   role: string;
   link?: string;
   dateSent: string;
+  nextStepDate?: string;
   stage: Stage;
   notes?: string;
   createdAt: string;
