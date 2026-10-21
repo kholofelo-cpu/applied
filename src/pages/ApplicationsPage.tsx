@@ -22,7 +22,7 @@ export function ApplicationsPage() {
   return (
     <div className="mx-auto max-w-5xl space-y-6 p-6">
       <div>
-        <h1 className="text-2xl font-bold">Your Applications</h1>
+        <h1 className="text-zinc-900 dark:text-white text-2xl font-bold">Your Applications</h1>
         <div className="mt-4">
           <StageSummary counts={counts} />
         </div>

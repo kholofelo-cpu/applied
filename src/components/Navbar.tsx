@@ -1,40 +1,32 @@
-// src/components/Navbar.tsx
-import { Link, useNavigate } from "react-router"
-import { useAuth } from "../context/AuthContext"
-import Loader from "./ui/loader"
+import { Link } from "react-router";
+import { useAuth } from "../context/AuthContext";
 
-export default function Navbar() {
-  const { user, logout, authLoading } = useAuth()
-  const navigate = useNavigate()
+const Navbar = () => {
+  const { user, logout } = useAuth();
 
   const handleLogout = async () => {
-    await logout()
-    navigate("/login")
-  }
+    await logout();
+    window.location.href = "/";
+  };
 
   return (
-    <nav className="flex justify-between items-center p-4 bg-gray-900 text-white">
-      <Link to="/" className="font-bold text-lg">Applied</Link>
-
+    <nav className="bg-zinc-900 text-white flex justify-between p-4 bg-zinc border-b">
+      <Link to="/" className="font-bold">Track Your Applications</Link>
       <div className="flex gap-4 items-center">
         {user ? (
           <>
-            <span className="text-sm opacity-70">{user.email}</span>
-            <button 
-              onClick={handleLogout} 
-              disabled={authLoading}
-              className="flex items-center gap-2"
-            >
-                  {authLoading ? <Loader /> : "Logout"}
-            </button>
+            <span className="text-sm">{user.email}</span>
+            <button onClick={handleLogout} className="bg-green text-white px-3 py-1 rounded">Logout</button>
           </>
         ) : (
           <>
             <Link to="/login">Login</Link>
-            <Link to="/register" className="bg-white text-black px-3 py-1 rounded">Register</Link>
+            <Link to="/register">Register</Link>
           </>
         )}
       </div>
     </nav>
-  )
-}
+  );
+};
+
+export default Navbar;
